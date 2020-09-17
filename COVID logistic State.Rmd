@@ -1,7 +1,7 @@
 ---
 title: "COVID-19 logistic curve modeling by US state"
 author: "Single state example"
-date: "9/15/2020"
+date: "9/17/2020"
 output:
   html_document:
     toc: true
@@ -132,7 +132,7 @@ AIC(Z) # AIC = -2LL + 2k
 
 # Plot
 ```{r, fig.width = 10, fig.height=10}
-pdf("curve.pdf", width = 12, height = 10)
+# pdf("curve.pdf", width = 12, height = 10)
 par(family="serif") 
 plot(temp$x, temp$y, ylab = "COVID SARS-2 Confirmed Cases", xlab="", xlim =c(min(temp$x),n+k), 
      ylim=c(0, max(temp$y) + 0.25*max(temp$y)), type="l", col="navy", lwd=3, 
@@ -159,7 +159,7 @@ Z10 <- round(predict(Z, list(x = seq(n+1,n+k))))
 #k-day forecast 
 Z10[1:k] 
 lines(seq(n+1,n+k), Z10[1:k], col="lightblue", lwd=2, lty=2)
-dev.off()
+# dev.off()
 ```
 
 
@@ -168,9 +168,8 @@ dev.off()
 [1] Hsieh YH, Lee JY, Chang HL. SARS epidemiology modeling. *Emerg Infect Dis.* 2004;10(6):1165-1168. doi:10.3201/eid1006.031023
 
 
-# Daily case increase
 
-## Daily case increase from COVID tracker
+# Daily case increase from COVID tracker
 ```{r}
 mydata0 <-read.csv(url("https://raw.githubusercontent.com/CivilServiceUSA/us-governors/master/us-governors/data/us-governors.csv"), na.strings = c("", "NA")) %>%
         dplyr::select(state_code, state_name, party) %>%
@@ -194,6 +193,8 @@ theme_set(theme_few(base_size = 14, base_family = "serif"))
 
 
 ```{r, fig.width = 10, fig.height=10}
+min <- as.Date("2020-4-1")
+max <- NA
 
 r<- ggplot(
         St, 
@@ -205,14 +206,14 @@ r<- ggplot(
         scale_color_manual(values = c("#00AFBB", "#FC4E07")) + 
         labs(x = "", y = "Daily Positive Increase", title = paste("COVID Daily positive increase in", State, "
         (with 7-day moving average)", "
-        Update: ", date)) + 
+        Update: ", date)) + scale_x_date(limits = c(min, max)) + 
         theme(legend.position = "none")
 
-r <- r + geom_vline(xintercept=St[St$Date=="2020-08-18",55],
-               linetype=4, colour="red") +
-  annotate("text", x = as.Date("2020-08-5"), y=5, label = "School re-opening")
+ r <- r + geom_vline(xintercept=St[St$Date=="2020-08-18",55],
+                linetype=4, colour="red") +
+   annotate("text", x = as.Date("2020-08-5"), y=5, label = "School re-opening")
 
-# pdf("curve2.pdf", width = 12, height = 10)
+# pdf("UT.pdf", width = 12, height = 10)
 r
 # dev.off()
 ```
