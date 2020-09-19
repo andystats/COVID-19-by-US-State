@@ -1,7 +1,7 @@
 ---
 title: "COVID-19 logistic curve modeling by US state"
 author: "Single state example"
-date: "9/19/2020"
+date: "`r Sys.Date()`"
 output:
   html_document:
     toc: true
