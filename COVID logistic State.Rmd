@@ -132,7 +132,7 @@ AIC(Z) # AIC = -2LL + 2k
 
 # Plot
 ```{r, fig.width = 10, fig.height=10}
-# pdf("curve.pdf", width = 12, height = 10)
+ #pdf("curve.pdf", width = 12, height = 10)
 par(family="serif") 
 plot(temp$x, temp$y, ylab = "COVID SARS-2 Confirmed Cases", xlab="", xlim =c(min(temp$x),n+k), 
      ylim=c(0, max(temp$y) + 0.25*max(temp$y)), type="l", col="navy", lwd=3, 
@@ -146,12 +146,13 @@ axis(1, at=c(temp[1,2], max(temp$x) ), lab=c(date1, date))
 
 lines(seq(1:n), predict(Z, list(x = seq(1:n))), lwd=2, col='blue', lty=3) 
 abline( h = max(temp$y), lty=3) 
-abline( h = ZZ$parameters[1], lty=3) 
+#abline( h = ZZ$parameters[1], lty=3) 
+abline(v=temp[temp$date == "X8.18.20",]$x, lty=2, col="red")
 text(max(temp$x)-80, max(temp$y) -6000, paste("Daily new cases = ", new_cases )) 
 text(max(temp$x)-80, max(temp$y)-2000, paste("Daily percent increase = ", round(one_day_percent,1), "%" )) 
 text(max(temp$x)-80, max(temp$y)-4000, paste("Seven-day percent increase = ", round(seven_days_percent,1), "%" )) 
 
-text(max(temp$x)-80, ZZ$parameters[1]-2000, paste("Estimated case asymptote = ", round(ZZ$parameters[1])), col="grey") 
+#text(max(temp$x)-80, ZZ$parameters[1]-2000, paste("Estimated case asymptote = ", round(ZZ$parameters[1])), col="grey") 
 text(n,  1000, paste("model AIC = ", round(AIC(Z),2), "\n (smaller is better)"),col="grey")
 
 Z10 <- round(predict(Z, list(x = seq(n+1,n+k)))) 
@@ -159,8 +160,10 @@ Z10 <- round(predict(Z, list(x = seq(n+1,n+k))))
 #k-day forecast 
 Z10[1:k] 
 lines(seq(n+1,n+k), Z10[1:k], col="lightblue", lwd=2, lty=2)
-# dev.off()
+ #dev.off()
 ```
+
+
 
 
 ## References
@@ -211,7 +214,7 @@ r<- ggplot(
 
  r <- r + geom_vline(xintercept=St[St$Date=="2020-08-18",55],
                 linetype=4, colour="red") +
-   annotate("text", x = as.Date("2020-08-5"), y=5, label = "School re-opening")
+   annotate("text", x = as.Date("2020-08-5"), y=5, label = "Inflection (2)")
 
 # pdf("UT.pdf", width = 12, height = 10)
 r
