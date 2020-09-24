@@ -132,7 +132,8 @@ AIC(Z) # AIC = -2LL + 2k
 
 # Plot
 ```{r, fig.width = 10, fig.height=10}
- #pdf("curve.pdf", width = 12, height = 10)
+ # pdf("curve.pdf", width = 12, height = 10)
+ # png(file = "curve.png", width = 1080, height = 900, units = "px", pointsize = 14)
 par(family="serif") 
 plot(temp$x, temp$y, ylab = "COVID SARS-2 Confirmed Cases", xlab="", xlim =c(min(temp$x),n+k), 
      ylim=c(0, max(temp$y) + 0.25*max(temp$y)), type="l", col="navy", lwd=3, 
@@ -160,7 +161,7 @@ Z10 <- round(predict(Z, list(x = seq(n+1,n+k))))
 #k-day forecast 
 Z10[1:k] 
 lines(seq(n+1,n+k), Z10[1:k], col="lightblue", lwd=2, lty=2)
- #dev.off()
+ # dev.off()
 ```
 
 
@@ -212,11 +213,12 @@ r<- ggplot(
         Update: ", date)) + scale_x_date(limits = c(min, max)) + 
         theme(legend.position = "none")
 
- r <- r + geom_vline(xintercept=St[St$Date=="2020-08-18",55],
-                linetype=4, colour="red") +
-   annotate("text", x = as.Date("2020-08-5"), y=5, label = "Inflection (2)")
+ # r <- r + geom_vline(xintercept=St[St$Date=="2020-08-18",55],
+ #                linetype=4, colour="red") +
+ #   annotate("text", x = as.Date("2020-08-5"), y=5, label = "Inflection (2)")
 
 # pdf("UT.pdf", width = 12, height = 10)
+# png(file = "UT.png", width = 1080, height = 900, units = "px", pointsize = 14)
 r
 # dev.off()
 ```
