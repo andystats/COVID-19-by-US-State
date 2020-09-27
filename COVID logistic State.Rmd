@@ -206,7 +206,8 @@ r<- ggplot(
         geom_point(show.legend = FALSE, alpha = 0.7) +  
         #facet_wrap(mydf$state_name, scales = "free") + 
         geom_line(aes(y=rollmean(positiveIncrease, 7, na.pad=TRUE), size=1.5))+
-        geom_smooth() + #ylim(0, 15000) +
+        geom_smooth()  + ylim(0, 1500) +
+        #geom_point(aes(x = as.Date("2020-09-25"), y=1411), colour="red", size=1.5) + 
         scale_color_manual(values = c("#00AFBB", "#FC4E07")) + 
         labs(x = "", y = "Daily Positive Increase", title = paste("COVID Daily positive increase in", State, "
         (with 7-day moving average)", "
