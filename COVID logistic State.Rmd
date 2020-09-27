@@ -187,7 +187,7 @@ mydf <- merge(mydata0, mydata2 , by="state")
 
 
 ```{r}
-State  = "UT"
+State  = "SD"
 St <- mydata2 %>% 
         filter(state==State) %>%
         filter(positiveIncrease > 0)
@@ -206,7 +206,7 @@ r<- ggplot(
         geom_point(show.legend = FALSE, alpha = 0.7) +  
         #facet_wrap(mydf$state_name, scales = "free") + 
         geom_line(aes(y=rollmean(positiveIncrease, 7, na.pad=TRUE), size=1.5))+
-        geom_smooth()  + ylim(0, 1500) +
+        geom_smooth()  + #ylim(0, 1500) +
         #geom_point(aes(x = as.Date("2020-09-25"), y=1411), colour="red", size=1.5) + 
         scale_color_manual(values = c("#00AFBB", "#FC4E07")) + 
         labs(x = "", y = "Daily Positive Increase", title = paste("COVID Daily positive increase in", State, "
@@ -214,9 +214,9 @@ r<- ggplot(
         Update: ", date)) + scale_x_date(limits = c(min, max)) + 
         theme(legend.position = "none")
 
- # r <- r + geom_vline(xintercept=St[St$Date=="2020-08-18",55],
- #                linetype=4, colour="red") +
- #   annotate("text", x = as.Date("2020-08-5"), y=5, label = "Inflection (2)")
+  r <- r + geom_vline(xintercept=St[St$Date=="2020-08-05",55],
+                 linetype=4, colour="red") 
+  #+ annotate("text", x = as.Date("2020-08-5"), y=5, label = "Inflection (2)")
 
 # pdf("UT.pdf", width = 12, height = 10)
 # png(file = "UT.png", width = 1080, height = 900, units = "px", pointsize = 14)
