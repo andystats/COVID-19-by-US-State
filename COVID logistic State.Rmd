@@ -224,4 +224,17 @@ r
 # dev.off()
 ```
 
+```{r}
+library(dygraphs)
+library(xts)
+
+cases.ts <- xts(St$positiveIncrease, order.by=as.POSIXct(St$Date))
+
+dygraph(cases.ts, main = paste("Daily increase COVID cases in", State)) %>%
+  dyRoller(rollPeriod = 10) %>%
+  dySeries("V1", strokeWidth = 3, label = "Case increase") %>%
+  dyShading(from = "2020-08-18", to = Sys.Date(), color = "#FFE6E6") %>%
+  dyRangeSelector()
+
+```
 
