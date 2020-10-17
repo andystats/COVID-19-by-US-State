@@ -1,16 +1,10 @@
 setwd("/Users/andywilson1/Documents/GitHub/COVID-19-by-US-State")
 
-#library(circlize)
 #install.packages("devtools")
-
-
 #library(devtools)
-
 
 #devtools::install_github("mattflor/chorddiag")
 library(chorddiag)
-
-
 
 
 set.seed(999)
@@ -27,5 +21,6 @@ p
 
 
 # save the widget
-# library(htmlwidgets)
- saveWidget(p, file="chord_interactive.html")
+
+library(htmlwidgets)
+saveWidget(p, file="chord_interactive.html")
